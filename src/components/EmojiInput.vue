@@ -2,14 +2,11 @@
   <fragment>
     <div class="m-2 flex w-3/4">
       <button
-        @click="openEmojis()"
+        @click="handleMenu()"
         ref="dropdown"
         class="dropdown focus:outline-none shadow border-gray-300 border px-1 rounded-tl rounded-bl py-1"
       >
         <span>{{emoji(emojiButtonCode)}}</span>
-        <div ref="content" class="dropdown-content">
-          <emoji-panel/>
-        </div>
       </button>
       <input
         ref="inputText"
@@ -19,6 +16,9 @@
         v-model="text"
         @keyup.enter="sendMessage()"
       >
+    </div>
+    <div ref="content" class="dropdown-content">
+      <emoji-panel/>
     </div>
   </fragment>
 </template>
@@ -31,14 +31,14 @@ export default {
   data() {
     return {
       emojiButtonCode: "0x1F600",
-      text: ""
+      text: "",
+      isOpen: false
     };
   },
   mounted() {
-    if (this.$refs.inputText) this.$refs.inputText.focus();
+    // if (this.$refs.inputText) this.$refs.inputText.focus();
     EventBus.$on("addEmoji", emoji => {
       this.text = `${this.text}${emoji}`;
-      if (this.$refs.inputText) this.$refs.inputText.focus();
     });
     EventBus.$on("clearInput", () => {
       this.text = "";
@@ -50,12 +50,24 @@ export default {
     },
     openEmojis() {
       if (this.$refs.dropdown)
-        this.$refs.dropdown.classList.toggle("display-block");
-      if (this.$refs.content)
-        this.$refs.content.classList.toggle("display-block");
+        this.$refs.dropdown.classList.add("display-block");
+      if (this.$refs.content) this.$refs.content.classList.add("display-block");
+      this.isOpen = !this.isOpen;
     },
     sendMessage() {
+      this.isOpen = true;
+      this.handleMenu();
       EventBus.$emit("sendMessage", this.text);
+    },
+    closeEmojis() {
+      if (this.$refs.dropdown)
+        this.$refs.dropdown.classList.remove("display-block");
+      if (this.$refs.content)
+        this.$refs.content.classList.remove("display-block");
+      this.isOpen = !this.isOpen;
+    },
+    handleMenu() {
+      this.isOpen ? this.closeEmojis() : this.openEmojis();
     }
   },
   components: {
@@ -74,8 +86,7 @@ export default {
   position: absolute;
   z-index: 1;
   overflow-y: auto;
-  top: 3em;
-  left: 0;
+  top: 20em;
 }
 .display-block {
   display: block;
