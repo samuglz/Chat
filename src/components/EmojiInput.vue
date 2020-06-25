@@ -4,18 +4,22 @@
       <button
         @click="handleMenu()"
         ref="dropdown"
-        class="dropdown focus:outline-none shadow border-gray-300 border px-1 rounded-tl rounded-bl py-1"
+        class="dropdown focus:outline-none shadow border-gray-300 border px-1 rounded-tl rounded-bl py-1 hover:bg-gray-300"
       >
         <span>{{emoji(emojiButtonCode)}}</span>
       </button>
       <input
         ref="inputText"
         type="text"
-        class="focus:outline-none shadow flex-grow w-3/4 px-4 border-t border-b border-r text-gray-700 rounded-br rounded-tr"
+        class="focus:outline-none shadow flex-grow w-3/4 px-4 border-t border-b text-gray-700"
         placeholder="Escriba su mensaje..."
         v-model="text"
         @keyup.enter="sendMessage()"
       >
+      <button
+        @click="sendMessage()"
+        class="focus:outline-none bg-green-700 shadow text-white hover:bg-green-500 py-2 px-2 border-t border-b border-r rounded-br rounded-tr border-gray-300 border"
+      >Send</button>
     </div>
     <div ref="content" class="dropdown-content">
       <emoji-panel/>
@@ -86,7 +90,7 @@ export default {
   position: absolute;
   z-index: 1;
   overflow-y: auto;
-  top: 20em;
+  top: 19.5em;
 }
 .display-block {
   display: block;

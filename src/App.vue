@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
+  <div class="flex flex-col justify-center">
     <chat-panel class="mt-2"/>
     <emoji-input/>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white w-56 h-56 border border-gray-300 py-4 px-1 rounded overflow-y-auto">
+  <div class="ml-2 bg-white w-56 h-56 border border-gray-300 py-4 px-1 rounded overflow-y-auto">
     <div class="md:px-0 px-2">
       <search-bar class="w-full"/>
     </div>
