@@ -5,7 +5,7 @@
     </div>
     <div class="grid grid-cols-7">
       <div
-        class="flex justify-center items-center"
+        class="flex justify-center items-center cursor-pointer"
         @click="handleClick(emoji.emoji)"
         v-for="(emoji, index) in emojis"
         :key="`${index}-${emoji.description}`"
